@@ -12,23 +12,23 @@ class OxwallHelper:
         self.wait = WebDriverWait(driver, 10)
         self.action = ActionChains(driver)
 
-    def login(self):
+    def login(self, username='fabric', password='pass'):
         # скрипт логирования пользователя
         # frame_element = dr.find_element(By.NAME, "demobody")
         # dr.switch_to.frame(frame_element)
         sing_in = self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'ow_signin_label')))
         sing_in.click()
-        username_email_field = self.driver.find_element(By.CSS_SELECTOR, '.ow_user_name input').send_keys('fabric')
-        pass_field = self.driver.find_element(By.CSS_SELECTOR, '.ow_password input').send_keys('pass')
+        username_email_field = self.driver.find_element(By.CSS_SELECTOR, '.ow_user_name input').send_keys(username)
+        pass_field = self.driver.find_element(By.CSS_SELECTOR, '.ow_password input').send_keys(password)
         button_sign_in = self.driver.find_element(By.NAME, 'submit').click()
 
     def get_posts(self):
         return self.driver.find_elements(By.CLASS_NAME, 'ow_newsfeed_item')
 
-    def create_post(self):
+    def create_post(self, text):
         # написания коментария
         comment_field = self.wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, '.ow_smallmargin textarea')))
-        comment_field.send_keys("test comment123")
+        comment_field.send_keys(text)
         add_comment_button = self.driver.find_element(By.CLASS_NAME, 'ow_attachment_btn input').click()
 
     def wait_new_post_appears(self, count_of_post):
