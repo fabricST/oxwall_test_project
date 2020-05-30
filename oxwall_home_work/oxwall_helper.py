@@ -35,7 +35,7 @@ class OxwallHelper:
 
     def wait_new_post_appears(self, count_of_post):
         return self.wait.until(presence_of_elements((By.CLASS_NAME, "ow_newsfeed_item"), count_of_post),
-                          message="the number of post isn't correct")
+                               message="the number of post isn't correct")
 
     def add_post_with_photo(self):
         # Добавить пост с фотографией
@@ -64,3 +64,4 @@ class OxwallHelper:
         field_comment = self.driver.find_element(By.CLASS_NAME, 'ow_comments_input textarea')\
             .send_keys(text)
         field_comment = self.driver.find_element(By.CLASS_NAME, 'ow_comments_input textarea').send_keys(Keys.ENTER)
+        added_comment = self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'comments_list_cont')))
